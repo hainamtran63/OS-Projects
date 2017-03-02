@@ -1,0 +1,44 @@
+Ryan Scopio
+Comp 322 - HW1
+2/9/17
+
+Missed Question 1 - 2nd attempt:
+
+1) 
+A universal computer can simulate an arbitrary machine on a given arbitrary input while
+dedicated processors are machines assigned to a single operation. Thus universal computers 
+have much more variety than dedicated processors.
+
+2)
+History of Electronic Computers:
+a) Mechanical Calculators
+R. Shickard - father / real creator of the first mechanical calculator
+B. Pascal - celebrated creator of the first mechanical calculator
+G. Leibniz - inventor of binary & creator of the "stepped reckoner" machine
+C. Babbage - father of the computer & invented the first mechanical computer
+
+b) Programming
+J. Jacquard - created first programable machine/loom
+Ada Byron Lovelace - mathematician & first computer programmer
+
+c) Computability
+K. Goedel - father of the mathmatical concept of a recursive function
+A. Church - created Lambda Calculus & helped Goedel with recursive functions
+E. Post - created computability theory using symbolic logic to solve problems
+A. Turing - Father of theoretical computer science & artificial intelligence
+
+d) Electronic Computers
+J. Atanasoff - invented first electronic programmable calculator/computer
+K. Zuse - Created first programmable electronic computer & the first high level programming language 
+J. von Neumann - Designed the architecture of the modern computer. Design structure of processors, cpu,
+		 internal and external memory as well as input and output.
+
+e) Personal Computers
+S. Wozniak - Co-founder of Apple. Designed first machines at Apple and influenced Macintosh
+S. Jobs - Co-founder of Apple. Helped create first Apple products and influenced Apple's growth.
+G. Kildall - Created an operating system CP/M. Used microprocessors as a whole computer instead of controllers.
+T. Paterson - could not find :C
+Douglas Engelbart - Inventor of the computer mouse
+An Wang - Founder of the computer company Wang Laboratories for deticated word processors 
+B. Gates - Co-founder of Microsoft and creator of Windows operating system.
+P. Allen - The other co-founder of Microsoft.
