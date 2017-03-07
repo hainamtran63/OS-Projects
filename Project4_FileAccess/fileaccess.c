@@ -1,49 +1,58 @@
 /*** fileaccess.c ***/
 /*** Ryan Scopio ***/
 
+// [Permissions][# of hardlinks][file owner][file group][file size]
+// [modification time][filename]
+
+// [file type][owner permissions][group permissions][everyone permissions]
+
 #include <stdio.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
 #include <locale.h>
 #include <langinfo.h>
-#include <dirent.h>
-
-/* fileaccess file ... 		*/
-/* print info on access modes 	*/
-
-// [Permissions][# of hardlinks][file owner][file group][file size]
-// [modification time][filename]
-
-// [file type][owner permissions][group permissions][everyone permissions]
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
 void DisplayInfo(struct stat);
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int errors, k;
     struct stat fileStat;
-    struct dirent *dp;
-    DIR *dfd;
+    struct dirent* dp;
     errors = 0;
 
-    //if multiple files, print total blocks
+	const char* homedir;
+	if((homedir = getenv("HOME")) == NULL)
+	{
+		homedir = getpwuid(getuid())->pw_dir;
+	}
+
+	//chose current directory if no arguments?
     if (argc == 1)
     {
-		//choose current directory
-		printf("Usage: %s dirname\n", argv[0]);
+		printf("%s was given no arguments\n", argv[0]);
 		return 0;
     }
 
     for (k = 1; k < argc; k++)
     {
-		/* fetch inode information */
-		//char filename[100];
-		//sprintf(filename, "%s/%s", argv[k], dp->d_name);
-		//printf("filename: %s", filename);
-		if (stat(argv[k], &fileStat) == (-1))
+		char* filepath = argv[k];
+		if(argv[k][0] != '/')
+		{
+			//create relative file path
+			filepath = (char*) malloc(2 + strlen(homedir)+strlen(argv[k]));
+			strcpy(filepath, homedir);
+			strcat(filepath, "/");
+			strcat(filepath, argv[k]);
+			printf("new file path: %s\n", filepath);
+		}
+
+		if (stat(filepath, &fileStat) == (-1))
 		{
 			fprintf(stderr, "%s: cannot access %s\n", argv[0], argv[k]);
 			errors++;
@@ -67,9 +76,9 @@ int main(int argc, char **argv)
 
 void DisplayInfo(struct stat fileStat)
 {
-    struct passwd *pwd;
-    struct group *grp;
-    struct tm *time;
+    struct passwd* pwd;
+    struct group* grp;
+    struct tm* time;
     /* print file permissions */
     //file type
     printf((S_ISDIR(fileStat.st_mode)) ? "d" : "-");
@@ -89,7 +98,7 @@ void DisplayInfo(struct stat fileStat)
     printf("."); //I don't know what this part represents
 
     /* # of hardlinks */
-    printf(" %d", fileStat.st_nlink);
+    printf(" %d", (int)fileStat.st_nlink);
 
     /* file owner */
     if ((pwd = getpwuid(fileStat.st_uid)) != NULL)
@@ -98,7 +107,7 @@ void DisplayInfo(struct stat fileStat)
     }
     else
     {
-		printf(" d", fileStat.st_uid);
+		printf(" %d", fileStat.st_uid);
     }
 
     /* file group */
@@ -112,7 +121,7 @@ void DisplayInfo(struct stat fileStat)
     }
 
     /* file size */
-    printf(" %d", fileStat.st_size);
+    printf(" %d", (int)fileStat.st_size);
 
     /* modification time */
     time = localtime(&fileStat.st_mtime);
