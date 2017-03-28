@@ -72,46 +72,21 @@ int main(int argc, char **argv)
     //permissions: owner, group, user
     //read
     if ((fileStat.st_uid == getuid() && fileStat.st_mode & S_IRUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IRGRP) || (fileStat.st_mode & S_IROTH))
-    {
-      printf("-"); //r
-    }
+      printf("r");
     else
-    {
       printf("-");
-    }
 
     //write
-    if(fileStat.st_uid == getuid() && fileStat.st_mode & S_IWUSR)
-    {
-      printf(" _owner write_ ");
-    }
-    if(fileStat.st_gid == getgid() && fileStat.st_mode & S_IWGRP)
-    {
-      printf(" _group write_ ");
-    }
-    if(fileStat.st_mode & S_IWOTH)
-    {
-      printf(" _other write_ ");
-    }
-
     if ((fileStat.st_uid == getuid() && fileStat.st_mode & S_IWUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IWGRP) || (fileStat.st_mode & S_IWOTH))
-    {
       printf("w");
-    }
     else
-    {
       printf("-");
-    }
 
     //execute
-    if((fileStat.st_uid == getuid() && fileStat.st_mode & S_IXUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IXGRP) || (fileStat.st_mode && S_IXOTH))
-    {
-      printf("-"); //x
-    }
+    if ((fileStat.st_uid == getuid() && fileStat.st_mode & S_IXUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IXGRP) || (fileStat.st_mode & S_IXOTH))
+      printf("x");
     else
-    {
       printf("-");
-    }
 
     /* # of hardlinks */
     printf(" %d", (int)fileStat.st_nlink);
