@@ -71,7 +71,7 @@ int main(int argc, char **argv)
     printf((S_ISDIR(fileStat.st_mode)) ? "d" : "-");
     //permissions: owner, group, user
     //read
-    if ((fileStat.st_uid == getuid() && fileStat.st_mode & S_IRUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IRGRP) || (fileStat.st_mode && S_IROTH))
+    if ((fileStat.st_uid == getuid() && fileStat.st_mode & S_IRUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IRGRP) || (fileStat.st_mode & S_IROTH))
     {
       printf("-"); //r
     }
@@ -89,12 +89,12 @@ int main(int argc, char **argv)
     {
       printf(" _group write_ ");
     }
-    if(fileStat.st_mode && S_IWOTH)
+    if(fileStat.st_mode & S_IWOTH)
     {
       printf(" _other write_ ");
     }
 
-    if ((fileStat.st_uid == getuid() && fileStat.st_mode & S_IWUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IWGRP) || (fileStat.st_mode && S_IWOTH))
+    if ((fileStat.st_uid == getuid() && fileStat.st_mode & S_IWUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IWGRP) || (fileStat.st_mode & S_IWOTH))
     {
       printf("w");
     }
