@@ -40,10 +40,22 @@ int my_double_ls(const char *name)
     return (0);
 }
 
-int main()
+void DisplayDirectories()
+{
+    //recursive function
+    //loop through directories
+    //print directory
+    //call DisplayDirectories on each directory
+}
+
+
+
+int main(int argc, char **argv)
 {
     int errors;
     errors = 0;
+
+    //call DisplayDirectories
 
     if (errors)
     {
