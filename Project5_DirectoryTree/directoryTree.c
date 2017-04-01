@@ -1,38 +1,30 @@
 #include <dirent.h>
 #include <stdio.h>
 
-int my_double_ls(const char *name)
+int DisplayDirectories(const char *name)
 {
+    //recursive function
+    //loop through directories
+    //print directory
+    //call DisplayDirectories on each directory
+
+    /* now go back to the beginning of the directory ... */
+    //rewinddir(dp);
+
     struct dirent *d;
     DIR *dp;
 
-    /* open the directory and check for failure */
     if ((dp = opendir(name)) == NULL)
     {
         return (-1);
     }
 
-    /* continue looping through the directory
-     * printing out the directory entry name as long
-     * as the inode number is valid
-     */
     while (d = readdir(dp))
     {
-        if (d->d_ino != 0)
+        if (d->d_ino != 0 && d->d_name != "." && d->d_name != "..")
         {
             printf("%s\n", d->d_name);
-        }
-    }
-
-    /* now go back to the beginning of the directory ... */
-    rewinddir(dp);
-
-    /* ... and print out the directory again */
-    while (d = readdir(dp))
-    {
-        if (d->d_ino != 0)
-        {
-            printf("%s\n", d->d_name);
+            DisplayDirectories(d->d_name);
         }
     }
 
@@ -40,20 +32,19 @@ int my_double_ls(const char *name)
     return (0);
 }
 
-void DisplayDirectories()
-{
-    //recursive function
-    //loop through directories
-    //print directory
-    //call DisplayDirectories on each directory
-}
-
-
-
 int main(int argc, char **argv)
 {
     int errors;
     errors = 0;
+
+    if (argc == 1)
+    {
+        char *filename;
+        scanf("%s", filename);
+        argv[argc++] = filename;
+    }
+
+    errors = DisplayDirectories(argv[1]);
 
     //call DisplayDirectories
 
