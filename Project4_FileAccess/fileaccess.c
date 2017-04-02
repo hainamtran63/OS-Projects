@@ -1,11 +1,6 @@
 /*** fileaccess.c ***/
 /*** Ryan Scopio ***/
 
-// [Permissions][# of hardlinks][file owner][file group][file size]
-// [modification time][filename]
-
-// [file type][user permissions]
-
 #include <stdio.h>
 #include <sys/stat.h>
 #include <pwd.h>
@@ -69,7 +64,7 @@ int main(int argc, char **argv)
 
     //file type
     printf((S_ISDIR(fileStat.st_mode)) ? "d" : "-");
-    //permissions: owner, group, user
+    
     //read
     if ((fileStat.st_uid == getuid() && fileStat.st_mode & S_IRUSR) || (fileStat.st_gid == getgid() && fileStat.st_mode & S_IRGRP) || (fileStat.st_mode & S_IROTH))
       printf("r");
