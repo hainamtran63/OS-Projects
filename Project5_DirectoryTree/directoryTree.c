@@ -1,7 +1,13 @@
 #include <dirent.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <limits.h>
+#include <string.h>
 
-int DisplayDirectories(const char *name)
+int DisplayDirectories(const char *name, int level)
 {
     //recursive function
     //loop through directories
@@ -11,25 +17,30 @@ int DisplayDirectories(const char *name)
     /* now go back to the beginning of the directory ... */
     //rewinddir(dp);
 
-    struct dirent *d;
-    DIR *dp;
+    DIR *dir;
+    struct dirent *entry;
 
-    if ((dp = opendir(name)) == NULL)
-    {
-        return (-1);
-    }
+    if (!(dir = opendir(name)))
+        return -1;
+    if (!(entry = readdir(dir)))
+        return -1;
 
-    while (d = readdir(dp))
+    do
     {
-        if (d->d_ino != 0 && d->d_name != "." && d->d_name != "..")
+        if (entry->d_type == DT_DIR)
         {
-            printf("%s\n", d->d_name);
-            DisplayDirectories(d->d_name);
+            char path[PATH_MAX + 1];
+            int len = snprintf(path, sizeof(path) - 1, "%s/%s", name, entry->d_name);
+            path[len] = 0;
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+            printf("%*s[%s]\n", level * 2, "", entry->d_name);
+            DisplayDirectories(path, level + 1);
         }
-    }
-
-    closedir(dp);
-    return (0);
+        //else
+            //printf("%*s- %s\n", level * 2, "", entry->d_name);
+    } while (entry = readdir(dir));
+    closedir(dir);
 }
 
 int main(int argc, char **argv)
@@ -44,9 +55,7 @@ int main(int argc, char **argv)
         argv[argc++] = filename;
     }
 
-    errors = DisplayDirectories(argv[1]);
-
-    //call DisplayDirectories
+    errors = DisplayDirectories(argv[1], 0);
 
     if (errors)
     {
