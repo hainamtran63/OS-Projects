@@ -9,14 +9,6 @@
 
 int DisplayDirectories(const char *name, int level)
 {
-    //recursive function
-    //loop through directories
-    //print directory
-    //call DisplayDirectories on each directory
-
-    /* now go back to the beginning of the directory ... */
-    //rewinddir(dp);
-
     DIR *dir;
     struct dirent *entry;
 
@@ -37,8 +29,6 @@ int DisplayDirectories(const char *name, int level)
             printf("%*s[%s]\n", level * 2, "", entry->d_name);
             DisplayDirectories(path, level + 1);
         }
-        //else
-            //printf("%*s- %s\n", level * 2, "", entry->d_name);
     } while (entry = readdir(dir));
     closedir(dir);
 }
