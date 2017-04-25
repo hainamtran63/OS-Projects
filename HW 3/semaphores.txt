@@ -1,0 +1,12 @@
+var a,b,c,d,e,f,g,h. semaphores;
+begin
+    parbegin
+        begin S1; V(a); V(b); end;
+        begin P(a); S2; V(c); V(d); end;
+        begin P(b); S5; V(g); end;
+        begin P(c); S3; S6; V(e); end;
+        begin P(d); S4; V(f); end;
+        begin P(e); P(f); S7; V(h); end;
+        begin P(g); P(h); S8; end;
+    parend
+end;

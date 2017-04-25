@@ -1,0 +1,81 @@
+1) 
+a)
+	int count7=2;
+	int count8=2;
+
+	S1;
+	Fork(L1);
+	S2;
+	Fork(L2);
+	S3;
+	S6;
+	GOTO L3;
+	L1: S5;
+	GOTO L4;
+	L2: S4;
+	L3: JOIN (count7);
+	S7;
+	L4: JOIN (count8);
+	S8;
+b)
+	S1;
+	PARBEGIN
+	    S5
+	    BEGIN
+		S2;
+		PARBEGIN
+		    S4;
+		    BEGIN
+		        S3;
+		        S6;
+		    END
+		PAREND
+		S7;
+	    END
+	PAREND
+	S8;
+c)
+	var a,b,c,d,e,f,g,h. semaphores;
+	begin
+	    parbegin
+		begin S1; V(a); V(b); end;
+		begin P(a); S2; V(c); V(d); end;
+		begin P(b); S5; V(g); end;
+		begin P(c); S3; S6; V(e); end;
+		begin P(d); S4; V(f); end;
+		begin P(e); P(f); S7; V(h); end;
+		begin P(g); P(h); S8; end;
+	    parend
+	end;
+
+2) A pipe is a shared buffer of a certain capacity that has two functions, read and write. Only one of each function can be accessed at a time. This is to share information between processes.
+
+write()
+{
+	while(lock_and_get_free_space() < bytes_to_write)
+		wait()
+	unlock()
+	write(bytes_to_write)
+	lock_and_update_free_space()
+}
+
+read()
+{
+	while(lock_and_get_data() < bytes_to_read)
+		wait()
+	unlock()
+	read(bytes_to_read)
+	lock_and_update_free_space()
+}
+
+
+
+3) A semaphore is basically a variable (usually an integer) that is used across processes to ensure that programs are executed in a very specific order.
+
+Semaphore_signal() { write 1 byte }
+Semaphore_wait() = { read 1 byte }
+
+4) The cirtical section problem is how to ensure that at most one process is executing its code segment using that critical section at any given time.
+Entry and exit blocks allows only one code segment access to the critical section at a time. Through mutual exclusion, when a process is executing in its critical section, no other processes can be executing in their critical section. Through progress, if no process is executing in its critical section and if there are some processes that wish to enter their critical sections, then one of these processes will get into the critical section. Through bounded waiting, after a process makes a request to enter its critical section, there is a bound on the number of times that other processes are allowed to enter their critical sections, before the request is granted.
+
+5) Software can use semaphores as a method of signaling between the different processes, letting the program know if it needs to wait before entering a critical section.

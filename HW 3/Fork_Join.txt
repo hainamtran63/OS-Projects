@@ -1,0 +1,17 @@
+int count7=2;
+int count8=2;
+
+S1;
+Fork(L1);
+S2;
+Fork(L2);
+S3;
+S6;
+GOTO L3;
+L1: S5;
+GOTO L4;
+L2: S4;
+L3: JOIN (count7);
+S7;
+L4: JOIN (count8);
+S8;

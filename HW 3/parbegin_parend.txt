@@ -1,0 +1,16 @@
+S1;
+PARBEGIN
+    S5
+    BEGIN
+        S2;
+        PARBEGIN
+            S4;
+            BEGIN
+                S3;
+                S6;
+            END
+        PAREND
+        S7;
+    END
+PAREND
+S8;
