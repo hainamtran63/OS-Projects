@@ -26,8 +26,8 @@ int DisplayDirectories(const char *name, int level)
             path[len] = 0;
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
                 continue;
-            printf("%*s[%s]\n", level * 2, "", entry->d_name);
-            DisplayDirectories(path, level + 1);
+            printf("%*s%s\n", level * 2, "", entry->d_name);
+            DisplayDirectories(path, level); // + 1);
         }
     } while (entry = readdir(dir));
     closedir(dir);
