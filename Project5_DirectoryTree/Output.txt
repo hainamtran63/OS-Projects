@@ -1,0 +1,28 @@
+ryan@chrx:~/Documents/OS-Projects/Project5_DirectoryTree$ ./dtScript.sh TestRoot/
+Program:
+Folder1
+Folder2
+Folder3
+FolderA
+FolderB
+FolderC
+FolderD
+FolderE
+FolderF
+FolderG
+FolderH
+FolderI
+Shell Script:
+Folder1
+Folder2
+Folder3
+FolderA
+FolderB
+FolderC
+FolderD
+FolderE
+FolderF
+FolderG
+FolderH
+FolderI
+The outputs are similar!
