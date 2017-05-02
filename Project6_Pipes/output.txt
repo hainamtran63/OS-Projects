@@ -1,0 +1,31 @@
+ryan@chrx:~/Documents/OS-Projects/Project6_Pipes$ ls
+a.out  empty_file  multi_line  one_char  pipes.c  short_line
+
+//one file
+ryan@chrx:~/Documents/OS-Projects/Project6_Pipes$ ./a.out multi_line
+    5   24  130 multi_line process=5503
+
+//multiple files
+ryan@chrx:~/Documents/OS-Projects/Project6_Pipes$ ./a.out multi_line short_line one_char empty_file 
+    5   24  130 multi_line process=5512
+    2    5   24 short_line process=5513
+    1    1    2 one_char process=5514
+    0    0    0 empty_file process=5515
+    8   30  156 total process=5511
+
+//one file with modifiers
+ryan@chrx:~/Documents/OS-Projects/Project6_Pipes$ ./a.out multi_line -wl
+    5   24 multi_line process=5531
+
+//multiple files with modifiers
+ryan@chrx:~/Documents/OS-Projects/Project6_Pipes$ ./a.out multi_line short_line -wl
+    5   24 multi_line process=5533
+    2    5 short_line process=5534
+    7   29 total process=5532
+
+//no file, stdin
+ryan@chrx:~/Documents/OS-Projects/Project6_Pipes$ ./a.out
+This is a test
+for stdin
+there should only be 1 process
+    3   12   56 process=5547
